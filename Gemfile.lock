@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    milwaukee (0.0.1)
+    milwaukee (1.0.0)
       rails (~> 3.2.3)
 
 GEM
