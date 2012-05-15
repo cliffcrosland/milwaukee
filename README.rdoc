@@ -16,11 +16,11 @@ to your application.js and application.css
 
 Certain libraries require explicit require statements to keep milmaukee light
 
-  //= require_directory milwaukee/data_structures
+  //= require_directory milwaukee/constructors
 
 or
 
-  //= require_directory milwaukee/data_structures/OrderedList.js
+  //= require_directory milwaukee/constructors/view.js
 
 
 = Effect
@@ -40,7 +40,7 @@ Library components are lowerCamelCased (helloThere)
 Directories use underscores as spaces (hello_there)
 
 
-= Other libraries worth pulling in
+= Other libraries worth pulling in but not included
 
 * jquery: Duh
 * jStorage: Great clientside storage library (even for browsers without local storage)
