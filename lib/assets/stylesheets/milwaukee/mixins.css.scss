@@ -1,57 +1,130 @@
+/* =============================================================================
+   Borders
+   ========================================================================== */
+
+/* NOTE: You can only use this if all four corners have the exact same border radius */
 @mixin border-radius($radius){
   border-radius: $radius;
-  -moz-border-radius: $radius;
-  -webkit-border-radius: $radius;
-	-khtml-border-radius: $radius;
-	border-top-left-radius: $radius;
-	border-top-right-radius: $radius;
-	border-bottom-left-radius: $radius;
-	border-bottom-right-radius: $radius;
+  -moz-border-radius: $radius; // for Firefox 3.X (later versions support border-radius natively)
 }
 
-@mixin two-tone($color1, $color2){
-	background-color:$color1;
-	background-image:-webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(.18, $color1),
-		color-stop(.6, $color2)
-	) !important;
-
-	background-image: -moz-linear-gradient(
-		center top,
-		$color1 18%,
-		$color2 60%
-	) !important;
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$color1}', endColorstr='#{$color2}', GradientType=0)  !important;
+@mixin border-left-radius($radius){
+  border-top-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+  -moz-border-radius-topleft: $radius;
+  -moz-border-radius-bottomleft: $radius;
 }
 
-@mixin transparent($hex, $a){
-	/* for IEGR8 */
-	/*
-	$mscolor:30;
-	background:transparent;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=##{$mscolor}#{$hex},endColorstr=##{$mscolor}#{$hex});
-	 zoom: 1;
-	 background-color: rgba(#{$hex},#{$a});
-	 */
-	background:transparent;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B0000000,endColorstr=#B0000000);
-	zoom: 1;
-	background-color: rgba($hex,$a);
+@mixin border-right-radius($radius){
+  border-top-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+  -moz-border-radius-topright: $radius;
+  -moz-border-radius-bottomright: $radius;
 }
 
-@mixin box-shadow($xoff, $yoff, $spread, $color){
-	-moz-box-shadow: $xoff $yoff $spread $color;
-	-webkit-box-shadow: $xoff $yoff $spread $color;
-	box-shadow: $xoff $yoff $spread $color;
+@mixin border-top-left-radius($radius){
+  border-top-left-radius: $radius;
+  -moz-border-radius-topleft: $radius;
 }
+
+@mixin border-top-right-radius($radius){
+  border-top-right-radius: $radius;
+  -moz-border-radius-topright: $radius;
+}
+
+@mixin border-bottom-left-radius($radius){
+  border-bottom-left-radius: $radius;
+  -moz-border-radius-bottomleft: $radius;
+}
+
+@mixin border-bottom-right-radius($radius){
+  border-bottom-right-radius: $radius;
+  -moz-border-radius-bottomright: $radius;
+}
+
+
+/* =============================================================================
+   Gradients
+   ========================================================================== */
+
+@mixin two-color-gradient($color1, $color2){
+  background-color: $color2;
+  background-image: linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -webkit-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -moz-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -o-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -ms-linear-gradient(top, $color1 0%, $color2 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color1), color-stop(100%, $color2));
+}
+
+@mixin half-stopped-four-color-gradient($color1, $color2, $color3, $color4){
+  background-color: $color4;
+  background-image: linear-gradient(top, $color1 0%, $color2 50%, $color3 50%, $color4 100%);
+  background-image: -webkit-linear-gradient(top, $color1 0%, $color2 50%, $color3 50%, $color4 100%);
+  background-image: -moz-linear-gradient(top, $color1 0%, $color2 50%, $color3 50%, $color4 100%);
+  background-image: -o-linear-gradient(top, $color1 0%, $color2 50%, $color3 50%, $color4 100%);
+  background-image: -ms-linear-gradient(top, $color1 0%, $color2 50%, $color3 50%, $color3 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color1), color-stop(50%, $color2), color-stop(50%, $color3), color-stop(100%, $color4));
+}
+
+/* =============================================================================
+   Box Shadow
+   ========================================================================== */
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  @if $inset != "" {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+    -o-box-shadow:inset $top $left $blur $color;
+    -ms-box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+    -o-box-shadow: $top $left $blur $color;
+    -ms-box-shadow: $top $left $blur $color;
+  }
+}
+
+/* =============================================================================
+   Opacity
+   ========================================================================== */
+
+/*
+ * NOTE: -ms-filter must come before filter. If you don’t use this order, IE8-as-IE7
+ * doesn’t apply the opacity, although IE8 and a pure IE7 do.
+ *
+ */
+
+@mixin opacity($decimal){
+  opacity: $decimal;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$decimal*100})";
+  filter: alpha(opacity=#{$decimal*100});
+}
+
+/* =============================================================================
+   CSS3 Transformations
+   ========================================================================== */
+
+/*
+ * NOTE: you must include the units ("deg", in this case) in your parameters.
+ * For example: rotate(30deg), not rotate(30)
+ *
+ */
+
+@mixin rotate($degrees) {
+  -webkit-transform:rotate($degrees);
+}
+
+/* =============================================================================
+   Misc.
+   ========================================================================== */
 
 @mixin no-select{
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
