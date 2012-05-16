@@ -35,9 +35,11 @@ Immediately a couple globals are introduced.
 
 = Code Style
 
-Constructor functions are CapCamelCased (HelloThere)
-Library components are lowerCamelCased (helloThere)
-Directories use underscores as spaces (hello_there)
+* Constructor functions are CapCamelCased (HelloThere)
+
+* Library components are lowerCamelCased (helloThere)
+
+* Directories use underscores as spaces (hello_there)
 
 
 = Other libraries worth pulling in but not included
